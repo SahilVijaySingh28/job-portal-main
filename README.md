@@ -1,8 +1,8 @@
 # Job Portal App
 
-[![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/your-username/your-repo)
+[![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/SahilVijaySingh28/job-portal-main)
 
-**[Go to Live App on Vercel](https://your-vercel-app-url.vercel.app/)**
+**[Go to Live App on Vercel](https://job-portal-main-pyyl.vercel.app/)**
 
 A modern, full-featured job portal built with React and Vite.
 
@@ -46,11 +46,11 @@ A modern, full-featured job portal built with React and Vite.
 1. [Sign up for Vercel](https://vercel.com/) if you don't have an account.
 2. Click the button below to deploy instantly:
 
-   [![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/your-username/your-repo)
+   [![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/SahilVijaySingh28/job-portal-main)
 
-3. Or, import your GitHub repository manually in the Vercel dashboard.
+3. Or, import your [GitHub repository](https://github.com/SahilVijaySingh28/job-portal-main) manually in the Vercel dashboard.
 4. Set the build command to `npm run build` and the output directory to `dist` (Vercel usually auto-detects this for Vite projects).
-5. After deployment, your app will be live at `https://your-vercel-app-url.vercel.app/`.
+5. After deployment, your app will be live at [https://job-portal-main-pyyl.vercel.app/](https://job-portal-main-pyyl.vercel.app/).
 
 ## Usage Notes
 
@@ -60,6 +60,16 @@ A modern, full-featured job portal built with React and Vite.
   - Only the admin can add jobs or manage applications.
 - **Dark mode:**
   - Use the moon icon in the navbar to toggle dark mode.
+
+## Troubleshooting
+
+### Images Not Loading After Deployment?
+If your images (like the logo) are not loading on Vercel or other static hosts, make sure you use the correct path:
+
+- **Use:** `/assets/Logo.png`
+- **Do NOT use:** `src/assets/Logo.png`
+
+Update all `<img src="...">` tags in your code to use `/assets/Logo.png` or the correct path relative to the `public` folder.
 
 ## Tech Stack
 - React

@@ -8,7 +8,7 @@ function ProfilePage({ role, userEmail, onLogout }){
             {/* Header */}
             <header className="sticky top-0 z-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-sm flex items-center justify-between px-8 py-4 border-b border-gray-200 dark:border-gray-800">
                 <div className="flex items-center gap-3">
-                    <img className="w-10 h-10" src="src/assets/Logo.png" alt="Job Board Logo" />
+                    <img className="w-10 h-10" src="/assets/Logo.png" alt="Job Board Logo" />
                     <span className="text-2xl font-bold text-teal-600 tracking-tight">Jobify</span>
                 </div>
                 <Navbar role={role} userEmail={userEmail} onLogout={onLogout} />
