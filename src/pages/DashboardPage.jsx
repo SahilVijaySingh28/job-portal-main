@@ -28,50 +28,48 @@ const DashboardPage = ({ role, userEmail, applications = [], onLogout, addJob, o
     }
 
     return (
-        <>
-            <div className="w-screen flex">
-                <div className="ml-20 w-[12%] flex items-center p-4">
-                    <img className="w-12 h-12 flex items-center justify-center" src="src/assets/Logo.png" alt="Job Board Logo" />
-                    <h2 className="text-teal-500 text-2xl font-semibold ml-2">Jobify</h2>
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50 dark:from-gray-900 dark:to-gray-800">
+            {/* Header */}
+            <header className="sticky top-0 z-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-sm flex items-center justify-between px-8 py-4 border-b border-gray-200 dark:border-gray-800">
+                <div className="flex items-center gap-3">
+                    <img className="w-10 h-10" src="src/assets/Logo.png" alt="Job Board Logo" />
+                    <span className="text-2xl font-bold text-teal-600 tracking-tight">Jobify</span>
                 </div>
-                <div className="w-[78%]">
-                    <Navbar role={role} userEmail={userEmail} onLogout={onLogout} onSidebarToggle={toggleSidebar} onToggleDarkMode={onToggleDarkMode} darkMode={darkMode} />
-                </div>
-            </div>
-            <div className={
-                'flex min-h-screen ' + (darkMode ? 'dark' : '')
-            }>
-                <Sidebar role={role} sidebarOpen={sidebarOpen} />
-                <div className={
-                    'flex-grow p-10 transition-all duration-300 ' +
-                    (sidebarOpen ? '' : 'ml-[-16rem] md:ml-0') +
-                    ' bg-gray-50 dark:bg-gray-900 dark:text-gray-100 min-h-screen'
-                }>
-                    <div className="mb-8">
-                        <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Welcome {isAdmin ? 'Admin' : userName}!</h1>
-                        <div className="flex flex-wrap gap-8 mt-4">
-                            <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-lg p-6 min-w-[180px] border border-gray-200 dark:border-gray-700">
-                                <div className="text-gray-500 dark:text-gray-300 text-lg">Total Jobs</div>
-                                <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">{totalJobs}</div>
-                            </div>
-                            {isAdmin && (
-                                <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-lg p-6 min-w-[180px] border border-gray-200 dark:border-gray-700">
-                                    <div className="text-gray-500 dark:text-gray-300 text-lg">Total Applications</div>
-                                    <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">{totalApplications}</div>
-                                </div>
-                            )}
+                <Navbar role={role} userEmail={userEmail} onLogout={onLogout} onSidebarToggle={toggleSidebar} onToggleDarkMode={onToggleDarkMode} darkMode={darkMode} />
+            </header>
+            <div className="flex min-h-[calc(100vh-72px)]">
+                {/* Sidebar */}
+                <aside className={`transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-0'} bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-lg overflow-hidden`}>
+                    <Sidebar role={role} sidebarOpen={sidebarOpen} />
+                </aside>
+                {/* Main Content */}
+                <main className="flex-1 p-6 md:p-12 lg:p-16">
+                    <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white tracking-tight">Welcome {isAdmin ? 'Admin' : userName}!</h1>
+                    {/* Stats Cards */}
+                    <div className="flex flex-wrap gap-8 mb-10">
+                        <div className="flex-1 min-w-[200px] bg-gradient-to-br from-teal-100 to-white dark:from-teal-900 dark:to-gray-900 rounded-2xl shadow-lg p-6 border border-teal-200 dark:border-teal-800 flex flex-col items-center hover:scale-105 transition-transform">
+                            <FaBriefcase className="text-3xl text-teal-500 mb-2" />
+                            <div className="text-gray-500 dark:text-gray-300 text-lg">Total Jobs</div>
+                            <div className="text-3xl font-bold text-teal-700 dark:text-teal-300">{totalJobs}</div>
                         </div>
+                        {isAdmin && (
+                            <div className="flex-1 min-w-[200px] bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-gray-900 rounded-2xl shadow-lg p-6 border border-blue-200 dark:border-blue-800 flex flex-col items-center hover:scale-105 transition-transform">
+                                <FaBriefcase className="text-3xl text-blue-500 mb-2" />
+                                <div className="text-gray-500 dark:text-gray-300 text-lg">Total Applications</div>
+                                <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">{totalApplications}</div>
+                            </div>
+                        )}
                     </div>
-                    {/* Stylish Job Preview */}
-                    <div className="mb-10">
-                        <h2 className="text-2xl font-bold mb-4 text-teal-700 dark:text-teal-300">Latest Jobs</h2>
+                    {/* Latest Jobs */}
+                    <section className="mb-12">
+                        <h2 className="text-2xl font-bold mb-6 text-teal-700 dark:text-teal-300">Latest Jobs</h2>
                         {latestJobs.length === 0 ? (
                             <p className="text-gray-500 dark:text-gray-300">No jobs to preview yet.</p>
                         ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {latestJobs.map((job, idx) => (
-                                    <div key={idx} className="bg-gradient-to-br from-teal-50 to-white dark:from-gray-800 dark:to-gray-900 border border-teal-100 dark:border-gray-700 rounded-xl shadow-lg dark:shadow-xl p-6 hover:shadow-2xl dark:hover:shadow-2xl transition group cursor-pointer">
-                                        <div className="flex items-center mb-3">
+                                    <div key={idx} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-6 hover:shadow-2xl transition group cursor-pointer flex flex-col gap-2">
+                                        <div className="flex items-center mb-2">
                                             <FaBriefcase className="text-teal-500 text-2xl mr-2 group-hover:scale-110 transition-transform" />
                                             <span className="text-xl font-semibold text-teal-700 dark:text-teal-300 group-hover:text-teal-900 dark:group-hover:text-teal-200 transition">{job.position}</span>
                                         </div>
@@ -102,23 +100,26 @@ const DashboardPage = ({ role, userEmail, applications = [], onLogout, addJob, o
                                 ))}
                             </div>
                         )}
-                    </div>
+                    </section>
+                    {/* Admin: Add Job & Applications */}
                     {isAdmin && (
-                        <AddJob addJob={addJob} />
+                        <section className="mb-12">
+                            <AddJob addJob={addJob} />
+                        </section>
                     )}
                     {isAdmin && (
-                        <div className="mt-10">
-                            <h2 className="text-2xl font-bold mb-4 text-teal-700 dark:text-teal-300">Job Applications</h2>
+                        <section className="mt-10">
+                            <h2 className="text-2xl font-bold mb-6 text-teal-700 dark:text-teal-300">Job Applications</h2>
                             {applications.length === 0 ? (
                                 <p className="text-gray-500 dark:text-gray-300">No applications received yet.</p>
                             ) : (
-                                <ul className="space-y-4">
+                                <ul className="space-y-6">
                                     {applications.map((app, idx) => (
-                                        <li key={idx} className="border rounded-lg p-4 bg-white dark:bg-gray-800 shadow dark:shadow-lg border-gray-200 dark:border-gray-700">
+                                        <li key={idx} className="border rounded-2xl p-6 bg-white dark:bg-gray-800 shadow-lg border-gray-200 dark:border-gray-700 flex flex-col gap-2">
                                             <div className="font-semibold text-lg text-teal-600 dark:text-teal-300">{app.job.position} at {app.job.company}</div>
-                                            <div className="text-gray-600 dark:text-gray-300 text-sm mb-2">Applied on: {app.date}</div>
-                                            <div className="text-gray-800 dark:text-gray-100 mb-2">{app.message}</div>
-                                            <div className="text-gray-500 dark:text-gray-400 text-sm mb-2">From: {app.userEmail}</div>
+                                            <div className="text-gray-600 dark:text-gray-300 text-sm mb-1">Applied on: {app.date}</div>
+                                            <div className="text-gray-800 dark:text-gray-100 mb-1">{app.message}</div>
+                                            <div className="text-gray-500 dark:text-gray-400 text-sm mb-1">From: {app.userEmail}</div>
                                             <div className="flex items-center gap-2 mb-2">
                                                 <input
                                                     type="text"
@@ -154,11 +155,11 @@ const DashboardPage = ({ role, userEmail, applications = [], onLogout, addJob, o
                                     ))}
                                 </ul>
                             )}
-                        </div>
+                        </section>
                     )}
-                </div>
+                </main>
             </div>
-        </>
+        </div>
     );
 };
 

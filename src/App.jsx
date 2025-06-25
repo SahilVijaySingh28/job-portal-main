@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';  // Import the Dashboard page
@@ -170,23 +170,33 @@ function App () {
     localStorage.removeItem('userEmail');
   };
 
-  // If not logged in, show login page only
-  if (!role) {
-    return <LoginPage onLogin={(role, email) => handleLogin(role, email)} />;
-  }
-
   return (
     <div className={"min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"}>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="/login" element={<Navigate to="/dashboard" />} />
-        <Route path="/dashboard" element={<DashboardPage role={role} userEmail={userEmail} applications={applications} onLogout={handleLogout} addJob={addJob} onApplicationDecision={handleApplicationDecision} jobs={jobs} darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
-        <Route path="/add-job" element={<AddJobPage addJob={addJob} role={role} userEmail={userEmail} onLogout={handleLogout} />} />
-        <Route path="/all-jobs" element={<AllJobPage jobs={jobs} role={role} userEmail={userEmail} onApply={handleApply} onLogout={handleLogout} />} />
-        <Route path="/profile" element={<ProfilePage role={role} userEmail={userEmail} onLogout={handleLogout} />} />
-        <Route path="/stats" element={<Stats role={role} userEmail={userEmail} onLogout={handleLogout} />} />
-        <Route path="/my-applications" element={<MyApplicationsPage applications={applications} userEmail={userEmail} role={role} onLogout={handleLogout} />} />
-        <Route path="/applications" element={<AdminApplicationsPage applications={applications} role={role} userEmail={userEmail} onLogout={handleLogout} onApplicationDecision={handleApplicationDecision} />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        {/* Protected routes */}
+        {role ? (
+          <>
+            <Route path="/dashboard" element={<DashboardPage role={role} userEmail={userEmail} applications={applications} onLogout={handleLogout} addJob={addJob} onApplicationDecision={handleApplicationDecision} jobs={jobs} darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
+            <Route path="/add-job" element={<AddJobPage addJob={addJob} role={role} userEmail={userEmail} onLogout={handleLogout} />} />
+            <Route path="/all-jobs" element={<AllJobPage jobs={jobs} role={role} userEmail={userEmail} onApply={handleApply} onLogout={handleLogout} />} />
+            <Route path="/profile" element={<ProfilePage role={role} userEmail={userEmail} onLogout={handleLogout} />} />
+            <Route path="/stats" element={<Stats role={role} userEmail={userEmail} onLogout={handleLogout} />} />
+            <Route path="/my-applications" element={<MyApplicationsPage applications={applications} userEmail={userEmail} role={role} onLogout={handleLogout} />} />
+            <Route path="/applications" element={<AdminApplicationsPage applications={applications} role={role} userEmail={userEmail} onLogout={handleLogout} onApplicationDecision={handleApplicationDecision} />} />
+          </>
+        ) : (
+          <>
+            <Route path="/dashboard" element={<Navigate to="/" />} />
+            <Route path="/add-job" element={<Navigate to="/" />} />
+            <Route path="/all-jobs" element={<Navigate to="/" />} />
+            <Route path="/profile" element={<Navigate to="/" />} />
+            <Route path="/stats" element={<Navigate to="/" />} />
+            <Route path="/my-applications" element={<Navigate to="/" />} />
+            <Route path="/applications" element={<Navigate to="/" />} />
+          </>
+        )}
       </Routes>
     </div>
   );
