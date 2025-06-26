@@ -1,6 +1,7 @@
 # Job Portal App
 
 A modern, full-featured job portal built with React and Vite.
+Live demo: https://job-portal-main-gn2fz6fgr-sahil-vijay-singhs-projects.vercel.app/
 
 ## Features
 
